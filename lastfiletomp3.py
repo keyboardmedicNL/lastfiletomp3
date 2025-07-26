@@ -5,17 +5,18 @@ import glob
 import subprocess
 import datetime
 
-#vars
-twitch_api_username = ""
-twitch_api_key = ""
-twitch_user_id = "115061151"
-input_folder_path = "recordings/"
+# do not touch anything above this!!!
+# vars
+twitch_api_username = "YOUR_TWITCH_API_ID"
+twitch_api_key = "YOUR_TWITCH_API_SECRET"
+twitch_user_id = "YOUR_TWITCH_UUID"
+input_folder_path = "PATH/TO/INPUT/FILES"
 output_file_bitrate = "192k"
 output_file_samplerate = "44100"
-metadata_artist = "KeyboardMedic"
+metadata_artist = "YOUR_ARTIST_NAME"
 
-
-
+# do not touch anything below here!!!
+# functions
 def get_twitch_title():
     response=requests.get(f"https://api.twitch.tv/helix/channels?broadcaster_id={twitch_user_id}", headers={'Authorization':f"Bearer {token}", 'Client-Id':twitch_api_username})
     print(f"tried to get twitch title with function get_twitch_title for {twitch_user_id} with response: {response}")
@@ -55,7 +56,8 @@ def convert_video_to_audio_with_ffmpeg(video_file_path, audio_file_path):
     command = f'ffmpeg -i {{}} -vn -ar {output_file_samplerate} -ac 2 -b:a {output_file_bitrate} -metadata artist="{metadata_artist}" -metadata title="{file_title} - {current_datey}" {{}}'.format(video_file_path, audio_file_path)
     subprocess.call(command, shell=True)
 
-#main
+#main loop
+
 current_date = datetime.date.today().strftime("%B %d, %Y")
 #gets token from file or api and loads it to token var
 token = get_twitch_api_token_from_file()
