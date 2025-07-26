@@ -6,8 +6,8 @@ import subprocess
 import datetime
 import time
 
-# do not touch anything above this!!!
 # vars
+# do not touch anything above this!!!
 twitch_api_username = "YOUR_TWITCH_API_ID"
 twitch_api_key = "YOUR_TWITCH_API_SECRET"
 twitch_user_id = "YOUR_TWITCH_UUID"

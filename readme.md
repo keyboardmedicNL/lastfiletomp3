@@ -1,5 +1,5 @@
 # what is it?
-a simple script using ffmpeg to find the last file in a folder and convert it to an mp3 file with the name of your last twitch stream and accompanying metadata
+a simple script using ffmpeg to find the last file in a folder and convert it to an mp3 file with the name of your last twitch stream and accompanying metadata, it then sends a notification message to a discord webhook (configurable)
 
 # how to use:
 - install python https://www.python.org/downloads/ 
