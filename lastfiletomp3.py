@@ -24,6 +24,10 @@ discord_message_wait_time_minutes = 1
 use_discord_notification = True
 
 # do not touch anything below here!!!
+
+current_date = datetime.date.today().strftime("%B %d, %Y")
+
+
 # functions
 def get_twitch_title():
     response=requests.get(
@@ -103,8 +107,6 @@ def send_message_to_discord():
 
 
 #main
-current_date = datetime.date.today().strftime("%B %d, %Y")
-
 #gets token from file or api and loads it to token var
 token = get_twitch_api_token_from_file()
 
