@@ -4,6 +4,7 @@ import os
 import glob
 import subprocess
 import datetime
+import time
 
 # do not touch anything above this!!!
 # vars
@@ -14,6 +15,10 @@ input_folder_path = "PATH/TO/INPUT/FILES"
 output_file_bitrate = "192k"
 output_file_samplerate = "44100"
 metadata_artist = "YOUR_ARTIST_NAME"
+output_file_path = 'PATH/TO/OUTPUT/FOLDER'
+discord_webhook = "YOUR_DISCORD_WEBHOOK_URL"
+discord_message = "YOUR_DISCORD_NOTIFICATION_MESSAGE"
+discord_message_wait_time_minutes = 1
 
 # do not touch anything below here!!!
 # functions
@@ -53,8 +58,18 @@ def get_twitch_api_token_from_file():
     return(token)
 
 def convert_video_to_audio_with_ffmpeg(video_file_path, audio_file_path):
-    command = f'ffmpeg -i {{}} -vn -ar {output_file_samplerate} -ac 2 -b:a {output_file_bitrate} -metadata artist="{metadata_artist}" -metadata title="{file_title} - {current_datey}" {{}}'.format(video_file_path, audio_file_path)
+    command = f'ffmpeg -i {{}} -vn -ar {output_file_samplerate} -ac 2 -b:a {output_file_bitrate} -metadata artist="{metadata_artist}" -metadata title="{file_title} - {current_date}" {{}}'.format(video_file_path, audio_file_path)
     subprocess.call(command, shell=True)
+
+def send_message_to_discord():
+    print(f"waiting {str(discord_message_wait_time_minutes)} minutes before posting a notification to discord")
+    time.sleep(60*discord_message_wait_time_minutes)
+    data_for_hook = {"content": "","embeds": [{"title": f"{discord_message}","description": f"{file_title} - {current_date}.mp3","color": 6570404}]}
+    rl = requests.post(discord_webhook, json=data_for_hook, params={'wait': 'true'})
+    if "200" in str(rl):
+        print(f"posting message to discord, response is {rl}")
+    else:
+        print(f"attempted to post message to discord, response is {rl}")
 
 #main loop
 
@@ -71,7 +86,7 @@ sorted_files = sorted(glob.glob(f"{input_folder_path}*"), key=os.path.getctime, 
 video_file = f'"{str(sorted_files[0])}"'
 print(f"latest video file = {video_file}")
 # adds current date to file title (twitch title) and starts conversion
-audio_file = f'"{file_title} - {current_date}.mp3"'
+audio_file = f'"{output_file_path}{file_title} - {current_date}.mp3"'
 print(f"getting ready to export to {audio_file}")
 convert_video_to_audio_with_ffmpeg(video_file, audio_file)
 print(f"script finished...")
