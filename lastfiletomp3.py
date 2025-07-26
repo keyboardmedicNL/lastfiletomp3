@@ -21,6 +21,7 @@ metadata_artist = "YOUR_ARTIST_NAME"
 discord_webhook = "YOUR_DISCORD_WEBHOOK_URL"
 discord_message = "YOUR_DISCORD_NOTIFICATION_MESSAGE"
 discord_message_wait_time_minutes = 1
+use_discord_notification = True
 
 # do not touch anything below here!!!
 # functions
