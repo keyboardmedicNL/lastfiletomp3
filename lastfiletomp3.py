@@ -5,6 +5,7 @@ import glob
 import subprocess
 import datetime
 import time
+import re
 
 # vars
 # do not touch anything above this!!!
@@ -105,6 +106,11 @@ def send_message_to_discord():
     else:
         print(f"attempted to post message to discord, response is {rl}")
 
+def sanitize_filename(name, replacement="_"):
+    sanitized = re.sub(r'[<>:"/\\|?*\x00-\x1F]', replacement, name)
+    sanitized = sanitized.strip(" .")
+
+    return sanitized if sanitized else "unnamed"
 
 #main
 #gets token from file or api and loads it to token var
@@ -122,7 +128,8 @@ video_file = f'"{str(sorted_files[0])}"'
 print(f"latest video file = {video_file}")
 
 # adds current date to file title (twitch title) and starts conversion
-audio_file = f'"{output_file_path}{file_title} - {current_date}.mp3"'
+file_title_stripped_of_invalid_characters = sanitize_filename(file_title)
+audio_file = f'"{output_file_path}{file_title_stripped_of_invalid_characters} - {current_date}.mp3"'
 print(f"getting ready to export to {audio_file}")
 convert_video_to_audio_with_ffmpeg(video_file, audio_file)
 
