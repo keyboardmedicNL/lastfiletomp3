@@ -4,7 +4,7 @@ import logging
 def configure():
     logging.basicConfig(
         format='%(asctime)s %(levelname)s: [%(module)s.%(funcName)s:%(lineno)d]: %(message)s',
-        filename='last_file_to_mp3.log',
+        filename='config/last_file_to_mp3.log',
         level=logging.INFO
     )
 

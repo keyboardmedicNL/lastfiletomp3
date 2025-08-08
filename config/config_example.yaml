@@ -1,0 +1,17 @@
+# required
+twitch_api_id: YOUR_TWITCH_API_ID
+twitch_api_secret: YOUR_TWITCH_API_SECRET
+twitch_user_id: YOUR_TWITCH_UUID
+
+input_folder_path: PATH/TO/INPUT/FILES
+output_file_path: PATH/TO/OUTPUT/FOLDER
+
+# optional, uncomment to use
+#output_file_bitrate: "192k
+#output_file_samplerate: "44100
+#metadata_artist: "YOUR_ARTIST_NAME
+
+#discord_webhook_url: "YOUR_DISCORD_WEBHOOK_URL
+#discord_message: "YOUR_DISCORD_NOTIFICATION_MESSAGE
+#discord_message_wait_time_minutes: 1
+#use_discord_notification: True

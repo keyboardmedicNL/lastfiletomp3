@@ -2,3 +2,7 @@
 token.txt
 lastfiletomp3copy.py
 /output
+config/*.txt
+config/config.yaml
+config/*.log
+__pycache__
