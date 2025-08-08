@@ -5,7 +5,7 @@ a simple script using ffmpeg to find the last file in a folder and convert it to
 - install python https://www.python.org/downloads/ 
 - install ffmpeg https://ffmpeg.org/
 - install the requests python library ```pip install requests```
-- open lastfiletomp3.py and fill in the empty values under #vars
+- open last_file_to_mp3.py and fill in the empty values under #vars
 - run the script
 - profit
 
