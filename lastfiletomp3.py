@@ -30,11 +30,8 @@ current_date = datetime.date.today().strftime("%B %d, %Y")
 
 # functions
 def get_twitch_title(token: str) -> tuple[str,dict]:
-    response=requests.get(
-                        f"https://api.twitch.tv/helix/channels?broadcaster_id={twitch_user_id}",
-                        headers={'Authorization':f"Bearer {token}",
-                        'Client-Id':twitch_api_username}
-                        )
+
+    response=requests.get(f"https://api.twitch.tv/helix/channels?broadcaster_id={twitch_user_id}",headers={'Authorization':f"Bearer {token}",'Client-Id':twitch_api_username})
     print(f"tried to get twitch title with function get_twitch_title for {twitch_user_id} with response: {response}")
     responsejson = response.json()
     twitch_title = responsejson["data"][0]["title"]
@@ -43,6 +40,7 @@ def get_twitch_title(token: str) -> tuple[str,dict]:
     return(twitch_title,response)
 
 def get_twitch_api_token() -> str: 
+        
         print("Requesting new twitch api auth token from twitch")
         response=requests.post(
                             "https://id.twitch.tv/oauth2/token",
@@ -58,6 +56,7 @@ def get_twitch_api_token() -> str:
 
             with open(r'token.txt', 'w') as tokenFile:
                 tokenFile.write("%s\n" % token)
+
         else:
             print(f"unable to request new twitch api auth token with response: {response}")
             token = "empty"
@@ -65,15 +64,17 @@ def get_twitch_api_token() -> str:
         return(token)
 
 def get_twitch_api_token_from_file() -> str:
+
     if exists(f"token.txt"):
             with open("token.txt", 'r') as file2:
                 tokenRaw = str(file2.readline())
                 token = tokenRaw.strip()
             print ("twitch api auth token to use for auth: " + token)
+
     else:
         token = get_twitch_api_token()
-        
     return(token)
+
 
 def convert_video_to_audio_with_ffmpeg(video_file_path: str, audio_file_path: str, file_title: str):
     command = (
@@ -90,6 +91,7 @@ def convert_video_to_audio_with_ffmpeg(video_file_path: str, audio_file_path: st
 
 def send_message_to_discord():
     print(f"waiting {str(discord_message_wait_time_minutes)} minutes before posting a notification to discord")
+
     if discord_message_wait_time_minutes > 0:
         time.sleep(60*discord_message_wait_time_minutes)
 
